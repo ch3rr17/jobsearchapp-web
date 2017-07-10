@@ -1,0 +1,9 @@
+<div class="container">
+    <h1 class="jumbotron">DATA PLEASE</h1>
+    <div class="row" ng-repeat="alumni in vm.alumnis">
+        <div class="col-md-2">{{alumni.firstname}}</div>
+        <div class="col-md-2">{{alumni.lastname}}</div>
+        <div class="col-md-2">{{alumni.cohort}}</div>
+        <button class="btn btn-primary btn-xs" ui-sref="alumniInfo({id: alumni.id})">MORE INFO</button>
+    </div>
+</div>
