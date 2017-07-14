@@ -24,7 +24,8 @@
         	//or assigns an empty object if they don't
             console.log('CONFIG', config);
             console.log(config.data)
-        	config.data = config.data || {};
+        	//config.data = config.data || {};
+            config.headers = config.headers || {};
 
             console.log('LOCALSTORAGE', localStorageService);
         	var authData = localStorageService.get('authorizationData');

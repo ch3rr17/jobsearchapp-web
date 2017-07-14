@@ -3,20 +3,19 @@
 
     angular
         .module('app')
-        .controller('LoginController', LoginController);
+        .controller('AdminLoginController', AdminLoginController);
 
-    LoginController.$inject = ['authService', '$state', 'toastr'];
+    AdminLoginController.$inject = ['authService2', '$state', 'toastr'];
 
     /* @ngInject */
-    function LoginController(authService, $state, toastr) {
+    function AdminLoginController(authService2, $state, toastr) {
         var vm = this;
-        vm.title = 'LoginController';
+        vm.title = 'AdminLoginController';
+
        
 
-        vm.login = function() {
-            // console.log('LOCAL FACTORY', LocalStorageFactory)
-            console.log('AUTHSERVICE', authService)
-                authService.login(vm.email, vm.password)
+        vm.adminLogin = function() {
+                authService2.login(vm.email, vm.password)
                     .then(
                         function(response) {
                             console.log('LOGIN RES', response);
@@ -27,7 +26,7 @@
                         }
                     );
 
-            } //end of login function
+            } 
     }
 })();
 

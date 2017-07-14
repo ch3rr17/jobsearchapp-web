@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .factory('authService', authService)
+        .factory('authService2', authService2)
 
-    authService.$inject = ['$q', '$http', 'localStorageService', '$location', '$state'];
+    authService2.$inject = ['$q', '$http', 'localStorageService', '$location', '$state'];
 
-    function authService($q, $http, localStorageService, $location, $state) {
+    function authService2($q, $http, localStorageService, $location, $state) {
         
         var state = {
             loggedIn: true
@@ -15,8 +15,7 @@
 
         var service = {
             state: state,
-            login: login,
-            init: init
+            login: login
         };
 
         var apiUrl = 'http://jobsearch-api.herokuapp.com/api/';
@@ -28,11 +27,9 @@
             state.loggedIn = true;
             var defer = $q.defer();
 
-            console.log("HELLO!");
-
             $http({
                 method: 'POST',
-                url: apiUrl + 'alumnis/login',
+                url: apiUrl + 'admins/login',
                 data: {email,password},
                 headers: { 'Authorization': 'access_token'}
             })
@@ -53,10 +50,10 @@
 
         }
 
-        function init(){
-            var authData = localStorageService.get('authData');
-            state.loggedIn = true;
-            $location.path('#/alumniInfo');
-        }
+        // function init(){
+        //     var authData = localStorageService.get('authData');
+        //     state.loggedIn = true;
+        //     $location.path('#/alumniInfo');
+        // }
     }
 })();

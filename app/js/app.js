@@ -9,14 +9,26 @@
         ])
 
         .config(function($stateProvider, $urlRouterProvider, $httpProvider){
-            $urlRouterProvider.otherwise('home');
+            $urlRouterProvider.otherwise('main');
 
             $httpProvider.interceptors.push('authInterceptor');
 
-            $stateProvider.state('login',{
-                url: '/login',
-                templateUrl: 'app/partials/login.html',
-                controller: 'LoginController as vm'
+            $stateProvider.state('main',{
+                url: '/main',
+                templateUrl: 'app/partials/main.html'
+
+            })
+            
+            $stateProvider.state('adminLogin',{
+                url: '/adminLogin',
+                templateUrl: 'app/partials/adminLogin.html',
+                controller: 'AdminLoginController as vm'
+            })
+
+            $stateProvider.state('alumniLogin',{
+                url: '/alumniLogin',
+                templateUrl: 'app/partials/alumniLogin.html',
+                controller: 'AlumniLoginController as vm'
             })
 
             $stateProvider.state('home',{
@@ -25,10 +37,18 @@
                 controller: 'AlumniController as vm'
             })
 
+           $stateProvider.state('myJobSearches',{
+                url: '/myJobSearches/',
+                templateUrl: 'app/partials/myJobSearches.html',
+                controller: 'JobSearchController as vm'
+            })
+
             $stateProvider.state('alumniInfo',{
                 url: '/alumniInfo/:id',
                 templateUrl: 'app/partials/alumniInfo.html',
                 controller: 'AlumniInfoController as vm'
             })
+
+
         })
 })();
