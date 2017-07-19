@@ -5,9 +5,9 @@
         .module('app')
         .factory('AlumniFactory', AlumniFactory)
 
-    AlumniFactory.$inject = ['$http', '$q', 'toastr'];
+    AlumniFactory.$inject = ['$http', '$q', 'toastr', 'apiUrl'];
 
-    function AlumniFactory($http, $q, toastr) {
+    function AlumniFactory($http, $q, toastr, apiUrl) {
         var service = {
             grabAlumni: grabAlumni,
             getAlumniById: getAlumniById,
@@ -20,22 +20,20 @@
         function grabAlumni(token) {
             var defer = $q.defer();
 
-            $http.get('http://jobsearch-api.herokuapp.com/api/alumnis?access_token=' + token)
-            // $http({
-            //     method: 'GET',
-            //     url: 'http://192.168.1.5:3000/api/alumnis',
-            //     headers: {
-            //         'Content-Type' : 'application/json',    
-            //         'Authorization': `${token}`
-            //     }
-            // })
+            $http({
+                method: 'GET',
+                url: apiUrl + 'alumnis',
+                headers: {   
+                    'Authorization': `${token}`
+                }
+            })
                 .then(
                     function (response) {
                         defer.resolve(response);
                     },
                     function (error) {
                         defer.reject(error);
-                        toastr.error(message);
+                        console.log(error);
                     }
                 );
 
@@ -46,7 +44,13 @@
         function getAlumniById(id, token) {
             var defer = $q.defer();
 
-            $http.get('http://jobsearch-api.herokuapp.com/api/alumnis/' + id + '/jobsearches' + '?access_token=' + token)
+            $http({
+                method: 'GET',
+                url: apiUrl + 'alumnis/' + id + '/jobsearches',
+                headers: {   
+                    'Authorization': `${token}`
+                }
+            })
                 .then(
                     function (response) {
                         defer.resolve(response);
@@ -63,7 +67,14 @@
         function getMyJobSearches(userId, token) {
             var defer = $q.defer();
 
-            $http.get('http://jobsearch-api.herokuapp.com/api/alumnis/' + userId + '/jobsearches' + '?access_token=' + token)
+            $http({
+                method: 'GET',
+                url: apiUrl + 'alumnis/' + userId + '/jobsearches',
+                headers: {   
+                    'Authorization': `${token}`
+                }
+            })
+
                 .then(
                     function (response) {
                         defer.resolve(response);

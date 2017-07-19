@@ -49,6 +49,8 @@
                 controller: 'AlumniInfoController as vm'
             })
 
-
         })
+
+        //API URL
+        .value('apiUrl', 'http://jobsearch-api.herokuapp.com/api/');
 })();

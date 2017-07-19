@@ -11,6 +11,11 @@
         /* jshint validthis:true */
         var vm = this;
 
+        vm.isLoggedIn = function() {
+            return authService.state.loggedIn;
+        };
+
+
         vm.getJobSearches = function(){
             var authData = localStorageService.get('authorizationData');
             var token = authData.id;
@@ -27,5 +32,10 @@
         }
 
         vm.getJobSearches();
+
+         vm.logout = function() {
+            authService.logout();
+
+        };
     }
 })();

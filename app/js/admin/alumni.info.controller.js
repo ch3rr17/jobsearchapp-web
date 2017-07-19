@@ -27,5 +27,10 @@
         }
 
         vm.alumniInfo();
+
+        vm.logout = function() {
+            authService.logout();
+
+        };
     }
 })();

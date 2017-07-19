@@ -22,18 +22,13 @@
         function request(config){
         	//grabs the headers if they exist
         	//or assigns an empty object if they don't
-            console.log('CONFIG', config);
-            console.log(config.data)
-        	//config.data = config.data || {};
             config.headers = config.headers || {};
 
-            console.log('LOCALSTORAGE', localStorageService);
         	var authData = localStorageService.get('authorizationData');
 
 
         	if(authData){
-                console.log('AUTHY DATA',authData);
-        		config.headers.Authorization =  "access_token";
+                config.headers.Authorization =  authData.id;
         	}
 
 

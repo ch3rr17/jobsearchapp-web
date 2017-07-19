@@ -5,11 +5,15 @@
         .module('app')
         .controller('AlumniController', AlumniController)
 
-    AlumniController.$inject = ['AlumniFactory', 'toastr', 'authService', 'authService2', 'localStorageService'];
+    AlumniController.$inject = ['AlumniFactory', 'toastr', 'authService2', 'localStorageService'];
 
-    function AlumniController(AlumniFactory, toastr, authService, authService2, localStorageService)  {
+    function AlumniController(AlumniFactory, toastr, authService2, localStorageService)  {
         /* jshint validthis:true */
         var vm = this;
+
+        vm.isLoggedIn = function() {
+            return authService2.state.loggedIn;
+        };
 
         vm.getAlumni = function(){
             var authData = localStorageService.get('authorizationData');
@@ -18,17 +22,19 @@
                          .then(
                              function(response){                                 
                                  vm.alumnis = response.data;
-                                 console.log(response.data);
-                                //  toastr.success("we got data");
                              },
                              function(error){
                                  console.log(error);
-                                //  toastr.error("no data");
                              }
                          );
         }
 
         vm.getAlumni();
+
+        vm.logout = function() {
+            authService2.logout();
+
+        };
 
     }
 })();

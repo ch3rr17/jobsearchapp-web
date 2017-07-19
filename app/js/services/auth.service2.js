@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .factory('authService', authService)
+        .factory('authService2', authService2)
 
-    authService.$inject = ['$q', '$http', 'localStorageService', '$location', '$state'];
+    authService2.$inject = ['$q', '$http', 'localStorageService', '$location', '$state', 'apiUrl'];
 
-    function authService($q, $http, localStorageService, $location, $state) {
+    function authService2($q, $http, localStorageService, $location, $state, apiUrl) {
         
         var state = {
             loggedIn: true
@@ -16,33 +16,26 @@
         var service = {
             state: state,
             login: login,
-            init: init
+            logout: logout
         };
-
-        var apiUrl = 'http://jobsearch-api.herokuapp.com/api/';
 
         return service;
 
         function login(email, password) {
-            //logout(); 
+           // logout(); 
             state.loggedIn = true;
             var defer = $q.defer();
 
-            console.log("HELLO!");
-
             $http({
                 method: 'POST',
-                url: apiUrl + 'alumnis/login',
+                url: apiUrl + 'admins/login',
                 data: {email,password},
                 headers: { 'Authorization': 'access_token'}
             })
             .then(
                 function(response){
-                    console.log('hello world');
-                    console.log('SERVICE RESPONSE', response);
                     localStorageService.set('authorizationData', response.data);
                     defer.resolve(response.data);
-                    console.log('LOGGING IN', response.data);
                 },
                 function(error){
                     defer.reject(error);
@@ -53,10 +46,17 @@
 
         }
 
-        function init(){
-            var authData = localStorageService.get('authData');
-            state.loggedIn = true;
-            $location.path('#/alumniInfo');
+
+        function logout(){
+        	localStorageService.remove('authorizationData');
+        	state.isLoggedIn = false;
+        	$location.path('#/main');
         }
+
+        // function init(){
+        //     var authData = localStorageService.get('authData');
+        //     state.loggedIn = true;
+        //     $location.path('#/alumniInfo');
+        // }
     }
 })();

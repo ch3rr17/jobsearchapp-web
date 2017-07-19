@@ -18,7 +18,6 @@
                 authService.login(vm.email, vm.password)
                     .then(
                         function(response) {
-                            console.log('LOGIN RES', response);
                             $state.go('myJobSearches');
                         },
                         function(message) {
